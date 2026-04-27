@@ -1,15 +1,8 @@
-from app.constants.prompt import prompt
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
-def build_prompt(context, query):
-    return prompt.format(
-        context = context, 
-        query = query
-    )
     
 def get_llm(repo_id: str = "meta-llama/Meta-Llama-3-8B-Instruct") -> ChatHuggingFace:
     """Initialize HuggingFace LLM"""
@@ -26,3 +19,10 @@ def get_llm(repo_id: str = "meta-llama/Meta-Llama-3-8B-Instruct") -> ChatHugging
     )
 
     return ChatHuggingFace(llm=endpoint)
+
+def generate_answer(query, repo_id: str = "meta-llama/Meta-Llama-3-8B-Instruct"):
+    llm = get_llm(repo_id=repo_id)
+    
+    result = llm.invoke(query)
+    
+    return result.context

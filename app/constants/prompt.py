@@ -16,3 +16,10 @@ Answer:
 """,
 input_variables=["context", "query"]
 )
+
+
+def build_prompt(context, query):
+    return prompt.format(
+        context = context, 
+        query = query
+    )

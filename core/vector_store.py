@@ -7,7 +7,7 @@ client = QdrantClient(path="qdrant_db")
 COLLECTION_NAME = "academic_data"
 
 def create_collection(vector_size : int):
-    client.recreate_collection(
+    client.create_collection(
         collection_name= COLLECTION_NAME,
         vectors_config= VectorParams(size=vector_size, distance = Distance.COSINE)
     )

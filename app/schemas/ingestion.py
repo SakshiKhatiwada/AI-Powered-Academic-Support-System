@@ -9,3 +9,7 @@ class DocumentIngestRequest(BaseModel):
     
 class BatchDocumentIngestRequest(BaseModel):
     documents: list[DocumentIngestRequest]
+    
+class DocumentIngestResponse(BaseModel):
+    status: str
+    document_id: str

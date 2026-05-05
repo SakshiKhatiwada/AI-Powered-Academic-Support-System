@@ -40,6 +40,6 @@ class Settings(BaseSettings):
             raise ValueError("chunk_overlap must be smaller than chunk_size")
         return v
     
-    @lru_cache
-    def get_settings() -> Settings:
+@lru_cache
+def get_settings() -> Settings:
         return Settings() #type: ignore[call-arg]

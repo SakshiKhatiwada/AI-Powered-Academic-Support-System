@@ -126,13 +126,8 @@ curl -X POST "http://localhost:8000/api/v1/generate-notes" \
   }'
 ```
 
-## Development
+## Running tests
 
-### Logs
-Application logs are written under `logs/` (see `app/utils/logging_config.py`).
-
-### Unit tests (stdlib)
-This repo includes a small regression test for the Qdrant adapter.
 ```bash
-python3 -m unittest discover -s tests -v
+pytest tests/ --maxfail=1
 ```

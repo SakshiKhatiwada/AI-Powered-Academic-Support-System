@@ -1,0 +1,9 @@
+this is test sample text file.
+Summary
+Building a proof-of-concept RAG application is easy, but getting its performance production-ready is hard. Like a machine learning project, you should evaluate the RAG pipeline’s performance with a validation dataset and an evaluation metric.
+
+However, since a RAG pipeline consists of multiple components that must be evaluated separately and in combinations, you will require a set of evaluation metrics. Additionally, generating a high-quality validation dataset from human annotators is hard, time-consuming, and expensive.
+
+This article has introduced the RAGAs [1] evaluation framework. The framework proposes four evaluation metrics — context_relevancy, context_recall, faithfulness and answer_relevancy — that together make up the RAGAs score. Additionally, RAGAs leverages LLMs under the hood for reference-free evaluation to save costs.
+
+Now that you have the tools to evaluate your RAG application’s performance, I recommend setting up an experimentation pipeline and start tweaking the performance with the following tuning strategies:

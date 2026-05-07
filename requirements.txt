@@ -20,3 +20,6 @@ sentence-transformers==5.4.1
 # ==== LLM / Provider ====
 google-genai==1.64.0
 openai==2.34.0
+
+# ==== Test ====
+pytest==9.0.3

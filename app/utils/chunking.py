@@ -1,12 +1,12 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter, CharacterTextSplitter
 
 def chunk_text(
-    content,
-    chunk_size,
-    chunk_overlap,
+    content: str,
+    chunk_size: int,
+    chunk_overlap: int,
     return_metadata: bool = False,
-    method= "recursive",
-    document_id: str | None = None
+    chunk_method: str = "recursive",
+    document_id: str | None = None,
     ) -> list:
     
     """
@@ -21,7 +21,9 @@ def chunk_text(
     document_id (str): Optional syllabus/document ID to include in metadata  
     """
     
-    if method == "recursive":
+    splitter: CharacterTextSplitter | RecursiveCharacterTextSplitter
+    
+    if chunk_method == "recursive":
         splitter = RecursiveCharacterTextSplitter(
             chunk_size = chunk_size,
             chunk_overlap = chunk_overlap,
@@ -29,7 +31,7 @@ def chunk_text(
             strip_whitespace = True
         )
         
-    elif method == "character":
+    elif chunk_method == "character":
         splitter = CharacterTextSplitter(
             chunk_size = chunk_size,
             chunk_overlap = chunk_overlap,
@@ -45,7 +47,7 @@ def chunk_text(
     chunks = splitter.split_text(content) # chunks as text
     
     if return_metadata:
-        [
+        return [
             {
                 "chunk_index": i,
                 "text": chunk,

@@ -2,7 +2,7 @@ from functools import lru_cache
 
 from app.adapters.embeddings.base import EmbeddingAdapter
 from app.adapters.embeddings.openai_adapter import OpenAIAdapter
-from app.adapters.embeddings.sentence_transformer import (
+from app.adapters.embeddings.sentence_transformers import (
     SentenceTransformersAdapter,
 )
 from app.adapters.llm.base import LLMAdapter

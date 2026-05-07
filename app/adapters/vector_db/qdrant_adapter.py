@@ -4,7 +4,7 @@ from typing import Any
 
 from qdrant_client import AsyncQdrantClient
 from qdrant_client.http.models import Distance, PointStruct, VectorParams
-from qdrant_client.models import FieldCondition, Filter, MatchValue
+from qdrant_client.models import FieldCondition, Filter, MatchValue, IsEmptyCondition, IsNullCondition, HasIdCondition, NestedCondition, HasVectorCondition
 
 from app.adapters.vector_db.base import VectorDBAdapter
 
@@ -14,41 +14,41 @@ class QdrantAdapter(VectorDBAdapter):
         self.client = AsyncQdrantClient(url=url)
         self.collection_name = "documents"
         self.vector_size = vector_size
-        self._collection_ready = False
+        self._collection_ready: set[str] = set()
         
-    async def ensure_collection(self) -> None:
-        if self._collection_ready:
+    async def ensure_collection(self, collection_name: str) -> None:
+        if collection_name in self._collection_ready:
             return
         
         collections = await self.client.get_collections()
         existing = {collection.name for collection in collections.collections} # set comprehension
         
-        if self.collection_name not in existing:
+        if collection_name not in existing:
             await self.client.create_collection(
-                collection_name=self.collection_name,
+                collection_name=collection_name,
                 vectors_config=VectorParams(
                     size = self.vector_size,
                     distance=Distance.COSINE
                 )
             )
-        self._collection_ready = True
+        self._collection_ready.add(collection_name)
         
-    async def store_embedding(self, id: str, embedding: list[float], metadata: dict[str, Any]):
-         await self.ensure_collection()
+    async def store_embedding(self, id: str, embedding: list[float], metadata: dict[str, Any], collection_name: str):
+         await self.ensure_collection(collection_name)
          point=PointStruct(
              id = str(uuid.uuid4()),
              vector=embedding,
              payload={**metadata, "document_id":id}
          )
          await self.client.upsert(
-             collection_name=self.collection_name,
-             points=list(point)
+             collection_name=collection_name,
+             points=[point]
          )
         
-    async def upsert_points(self, points: Sequence[Any]) -> None:
-        await self.ensure_collection()
+    async def upsert_points(self, points: Sequence[Any], collection_name: str) -> None:
+        await self.ensure_collection(collection_name)
         await self.client.upsert(
-            collection_name=self.collection_name,
+            collection_name=collection_name,
             points=list(points)
         )
         
@@ -56,50 +56,54 @@ class QdrantAdapter(VectorDBAdapter):
         self,
         query_embedding: list[float],
         top_k: int,
-        filters: dict[str,Any] | None = None
+        collection_name: str,
+        filters: dict[str,Any] | None = None,
         ) -> list[dict[str,Any]]:
-        await self.ensure_collection()
+        await self.ensure_collection(collection_name)
         
         qdrant_filter = None
         
         # build conditional filter
+        qdrant_filter = None
         if filters:
-            conditions: list[FieldCondition] = []
-            for key,value in filters.items():
-                if value is None:
-                    continue
-                conditions.append(
-                    FieldCondition(
-                        key=key,
-                        match=MatchValue(value=value)
-                    )
-                )
-            
-            if conditions:
-                qdrant_filter = Filter(must=list(conditions))
-                
-            results = await self.client.search(
-                collection_name = self.collection_name,
-                query_vector = query_embedding,
-                limit=top_k,
-                query_filter = qdrant_filter
-            ) # type: ignore[attr-defined]
-            
-            return[
-                {
-                    "id": hit.id,
-                    "score": hit.score,
-                    "content": hit.payload.get("content") if hit.payload else None,
-                    "metadata": hit.payload
-                }
-                for hit in results
+            conditions: list[
+                FieldCondition
+                | IsEmptyCondition
+                | IsNullCondition
+                | HasIdCondition
+                | NestedCondition
+                | Filter
+                | HasVectorCondition
+            ] = [
+                FieldCondition(key=k, match=MatchValue(value=v))
+                for k, v in filters.items()
+                if v is not None
             ]
             
+            if conditions:
+                qdrant_filter = Filter(must=conditions)
+
+        results = await self.client.query_points(
+            collection_name=collection_name,
+            query=query_embedding,
+            limit=top_k,
+            query_filter=qdrant_filter,
+        )  # type: ignore[attr-defined]
+
+        return [
+            {
+                "id": hit.id,
+                "score": hit.score,
+                "content": hit.payload.get("content") if hit.payload else None,
+                "metadata": hit.payload,
+            }
+            for hit in results.points
+        ]
     
-    async def delete_by_document_id(self, document_id:str):
-        await self.ensure_collection()
+    async def delete_by_document_id(self, document_id:str, collection_name: str):
+        await self.ensure_collection(collection_name)
         await self.client.delete(
-            collection_name=self.collection_name,
+            collection_name=collection_name,
             points_selector=Filter(
                 must=[FieldCondition(
                     key="document_id",

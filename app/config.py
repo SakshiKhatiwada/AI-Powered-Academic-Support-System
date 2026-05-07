@@ -10,13 +10,14 @@ class Settings(BaseSettings):
     qdrant_url: str | None = None
     
     # embeddings
-    embeddings_provider: str = "sentence_transformers"
+    embedding_provider: str = "sentence_transformers"
     embedding_model: str = "all-MiniLM-L6-v2"
     embedding_dimension: int = 384
     
     # llm
     llm_provider: str = "gemini"
     gemini_api_key: SecretStr | None = None
+    openai_api_key: SecretStr | None = None
     local_llm_model: str | None = None
     
     # chunking
@@ -42,4 +43,4 @@ class Settings(BaseSettings):
     
 @lru_cache
 def get_settings() -> Settings:
-        return Settings() #type: ignore[call-arg]
+    return Settings() #type: ignore[call-arg]

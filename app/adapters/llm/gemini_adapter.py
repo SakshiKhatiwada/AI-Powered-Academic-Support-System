@@ -13,8 +13,8 @@ class GeminiAdapter(LLMAdapter):
     async def generate_text(
         self,
         prompt: str,
-        temparature: float = 0.3, 
-        max_tokens: int = 1200 
+        temperature: float = 0.3, 
+        max_tokens: int = 5000 
         )-> str:
         """
         Generate text using Gemini with controlled parameters
@@ -25,7 +25,7 @@ class GeminiAdapter(LLMAdapter):
                 model = self.model_name,
                 contents = prompt, 
                 config={
-                    "temparature": temparature,
+                    "temperature": temperature,
                     "max_output_tokens": max_tokens
                 },
             )

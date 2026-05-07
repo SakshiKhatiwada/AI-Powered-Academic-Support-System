@@ -2,6 +2,9 @@ from fastapi import UploadFile
 from typing import Any
 import uuid
 
+from app.adapters.vector_db.base import VectorDBAdapter
+from app.adapters.embeddings.base import EmbeddingAdapter
+
 from app.utils.loaders import load_pdf
 from app.utils.chunking import chunk_text
 
@@ -11,11 +14,11 @@ class IngestionService:
     
     def __init__(
         self, 
-        vector_db, 
-        embedding_service, 
-        chunk_size, 
-        chunk_overlap, 
-        chunk_method
+         vector_db: VectorDBAdapter,
+        embedding_service: EmbeddingAdapter,
+        chunk_size: int,
+        chunk_overlap: int, 
+        chunk_method: str = "recursive"
     ):
         self.vector_db = vector_db
         self.embedding_service = embedding_service
@@ -24,11 +27,18 @@ class IngestionService:
         self.chunk_method = chunk_method
         
     async def ingest_document(
-        self, document_id: str, file: UploadFile, metadata: dict[str, Any] | None = None
+        self, document_id: str, file: UploadFile, metadata: dict[str, Any] | None = None,collection_name: str = "default_documents"
     ):
-        
+        """
+        Ingest a PDF document into vector DB:
+        - Delete old vectors for this document
+        - Extract PDF text
+        - Chunk text
+        - Generate embeddings
+        - Store embeddings in vector DB
+        """
         # delete old vectors
-        await self.delete_existing_syllabus(document_id)
+        await self.delete_existing_syllabus(document_id, collection_name)
         
         # load pdf
         try:
@@ -52,7 +62,7 @@ class IngestionService:
         UPSERT_BATCH_SIZE = 64 # for network,64 vectors at once to db
         points_buffer: list[PointStruct] = [] # buffer to hold before bulk inserting to database
         
-        await self.vector_db.ensure_collection()
+        await self.vector_db.ensure_collection(collection_name)
         
         for i in range(0, len(chunks), EMBED_BATCH_SIZE): # takes a batch
             batch_chunks = chunks[i : i + EMBED_BATCH_SIZE]
@@ -79,14 +89,14 @@ class IngestionService:
                 )
                 
             if len(points_buffer) > UPSERT_BATCH_SIZE: # upserts in bulk
-                await self.vector_db.upsert_points(points_buffer)
+                await self.vector_db.upsert_points(points_buffer, collection_name)
                 points_buffer.clear()
         
         if points_buffer: # upserts everything that remains at the last
-            await self.vector_db.upsert_points(points_buffer)
+            await self.vector_db.upsert_points(points_buffer, collection_name)
                 
         
-    async def delete_existing_syllabus(self, document_id: str):
+    async def delete_existing_syllabus(self, document_id: str,collection_name: str):
         """
         Delete all the vectors associated with the given document_id from the vector database """
-        await self.vector_db.delete_by_document_id(document_id)
+        await self.vector_db.delete_by_document_id(document_id, collection_name)

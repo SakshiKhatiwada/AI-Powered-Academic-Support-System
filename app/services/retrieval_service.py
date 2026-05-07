@@ -1,32 +1,40 @@
 from typing import Any
+
+from app.adapters.embeddings.base import EmbeddingAdapter
+from app.adapters.vector_db.base import VectorDBAdapter
+
+
 class RetrievalService:
-    
-    def __init__(self,vector_db, embedding_service, collection_name):
+    def __init__(
+        self, vector_db: VectorDBAdapter, embedding_service: EmbeddingAdapter, collection_name: str
+    ):
         self.vector_db = vector_db
         self.embedding_service = embedding_service
         self.collection_name = collection_name
-        
-    async def retrieve_context(
-        self, 
-        query: str, 
-        top_k : int,
-        filters : dict[str, Any]
+
+    async def retrieve(
+        self,
+        query: str,
+        top_k: int,
+        filters: dict[str, Any],
     ) -> list[dict]:
-        """Performs Retrieval"""    
-        
+        """
+        Performs syllabus-scoped semantic retrieval.
+        """
+
         if not query:
-            raise ValueError("Retrieval Query can't be empty")     
-        
-        query_embedding = await self.embedding_service(query) # func for now
-        
+            raise ValueError("Retrieval query cannot be empty")
+
+        query_embedding = await self.embedding_service.embed_text(query)
+
         results = await self.vector_db.search_similar(
-            query_embedding = query_embedding,
-            top_k = top_k,
-            collection_name = self.collection_name,
-            filters = filters
+            query_embedding=query_embedding,
+            top_k=top_k,
+            collection_name=self.collection_name,
+            filters=filters,
         )
-        
+
         if not results:
             return []
-        
+
         return results

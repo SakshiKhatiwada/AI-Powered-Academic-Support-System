@@ -5,7 +5,7 @@ class LLMAdapter(ABC):
     def generate_text(
         self, 
         prompt : str,
-        temparature : float,
+        temperature : float,
         max_tokens :int 
     ) -> str:
         pass

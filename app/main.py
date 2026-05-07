@@ -16,18 +16,19 @@ async def lifespan(app: FastAPI):
     setup_logging()
 
     # Startup log (now goes to file)
-    logger.info("Starting TabFlux AI RAG Service")
+    logger.info("Starting AI Powered Academic Support System RAG Service")
 
     yield  # Application runs here
 
     # Shutdown log
-    logger.info("Shutting down TabFlux AI RAG Service")
+    logger.info("Shutting down AI Powered Academic Support System RAG Service")
 
 
 app = FastAPI(
-    title="TabFlux AI RAG Service",
+    title="AI RAG Service",
     version="1.0.0",
     lifespan=lifespan,
+    debug=True
 )
 
 # Include routers

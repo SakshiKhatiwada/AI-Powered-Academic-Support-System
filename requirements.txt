@@ -8,7 +8,8 @@ langchain-community==0.4.1
 langchain==1.2.15
 langchain-text-splitters==1.1.2
 pypdf==6.10.2
-langchain_huggingface-1.2.2
+langchain_huggingface==1.2.2
+python-multipart==0.0.27
 
 # ==== Vector Database ==== 
 qdrant-client==1.17.1
@@ -18,3 +19,4 @@ sentence-transformers==5.4.1
 
 # ==== LLM / Provider ====
 google-genai==1.64.0
+openai==2.34.0

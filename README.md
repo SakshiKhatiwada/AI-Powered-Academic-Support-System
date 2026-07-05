@@ -102,7 +102,6 @@ OR
 curl -X POST "http://localhost:8000/api/v1/generate-notes" \
   -H "Content-Type: application/json" \
   -d '{
-  {
   "chapter": "1. Introduction to Neural Network",
   "chapter_credit_hours": 4,
   "document_id": "123",
@@ -124,6 +123,38 @@ curl -X POST "http://localhost:8000/api/v1/generate-notes" \
   ],
   "university": "Tribhuvan University"
   }'
+```
+
+OR 
+
+```bash 
+curl -X POST "http://localhost:8000/api/v1/generate-notes" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "chapter": "1. Introduction to Java Programming",
+  "chapter_credit_hours": 4,
+  "document_id": "java-demo-001",
+  "learning_outcomes": [
+    "Understand the fundamentals of Java programming, object-oriented concepts, JVM architecture, exception handling, collections, and multithreading."
+  ],
+  "level": "topic",
+  "program": "BSc CSIT",
+  "subject": "Java Programming",
+  "subject_id": "csc262",
+  "subtopics": [
+    "History and Features of Java",
+    "Java Virtual Machine",
+    "Object-Oriented Programming",
+    "Exception Handling",
+    "Collections Framework",
+    "Multithreading"
+  ],
+  "topic_title": "1.1 Java Programming Fundamentals",
+  "topics": [
+    "Java Programming Fundamentals"
+  ],
+  "university": "Tribhuvan University"
+}'
 ```
 
 ## Running tests

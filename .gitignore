@@ -205,3 +205,75 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# ===========================
+# LaTeX Intermediate Files
+# ===========================
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.dvi
+*.ps
+*.ilg
+*.ind
+*.idx
+*.ist
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+
+# ===========================
+# latexmk
+# ===========================
+*.latexmk
+
+# ===========================
+# Build Directories
+# ===========================
+build/
+out/
+
+# ===========================
+# Temporary Files
+# ===========================
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ===========================
+# IDE Files
+# ===========================
+.vscode/
+.idea/
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+Thumbs.db
+
+# ===========================
+# PDF Output (Optional)
+# Uncomment if you don't want PDFs in Git
+# ===========================
+# *.pdf

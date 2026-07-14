@@ -1,0 +1,107 @@
+% ============================================================
+% AI-Powered Academic Support System
+% B.Sc. CSIT Project Report
+% Tribhuvan University
+% ============================================================
+
+\documentclass[12pt,a4paper]{report}
+
+% ------------------------------------------------------------
+% Load packages, formatting and custom commands
+% ------------------------------------------------------------
+\input{styles/packages}
+\input{styles/formatting}
+\input{styles/commands}
+
+\begin{document}
+
+% ============================================================
+% FRONT MATTER
+% ============================================================
+
+% ---------------- Title Page ----------------
+\input{chapters/01_title}
+
+% Roman numbering starts from Certificate page
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% ---------------- Certificate ----------------
+\input{chapters/02_certificate}
+
+% ---------------- Approval ----------------
+\clearpage
+\input{chapters/03_approval}
+
+% ---------------- Acknowledgement ----------------
+\clearpage
+\input{chapters/04_acknowledgement}
+
+% ---------------- Abstract ----------------
+\clearpage
+\input{chapters/05_abstract}
+
+% ---------------- Table of Contents ----------------
+\clearpage
+\tableofcontents
+
+% ---------------- List of Figures ----------------
+\clearpage
+\listoffigures
+
+% ---------------- List of Tables ----------------
+\clearpage
+\listoftables
+
+% ============================================================
+% MAIN MATTER
+% ============================================================
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% ---------------- Chapter 1 ----------------
+\input{chapters/chapter1_introduction}
+
+% ---------------- Chapter 2 ----------------
+\input{chapters/chapter2_background_study}
+
+% ---------------- Chapter 3 ----------------
+\input{chapters/chapter3_system_analysis}
+
+% ---------------- Chapter 4 ----------------
+\input{chapters/chapter4_system_design}
+
+% ---------------- Chapter 5 ----------------
+\input{chapters/chapter5_implementation}
+
+% ---------------- Chapter 6 ----------------
+\input{chapters/chapter6_conclusion}
+
+% ============================================================
+% REFERENCES
+% ============================================================
+
+\clearpage
+
+% Uncomment ONE of the following depending on your workflow.
+
+% ---------- Option A (Recommended): BibTeX ----------
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+% ---------- Option B (Manual References) ----------
+% \input{chapters/references}
+
+% ============================================================
+% APPENDICES
+% ============================================================
+
+\appendix
+
+\clearpage
+\input{chapters/appendices}
+
+\end{document}

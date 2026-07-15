@@ -29,29 +29,33 @@
     \caption{Build Knowledge Base Use Case}
     \label{tab:build_knowledge_base_use_case}
 
-    \begin{tabular}{|c|l|}
+    \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|}
+
         \hline
-        Field & Description \\
+        \textbf{Field} & \textbf{Description} \\
         \hline
         Use Case ID & UC-1 \\
+        \hline
         Use Case Name & Build Knowledge Base \\
+        \hline
         Primary Actor & Administrator \\
+        \hline
         Description & Creates or updates the vector database from academic PDF documents.\\
+        \hline
         Preconditions & Academic PDF documents are available for processing. \\
+        \hline
         Postconditions & The vector database is updated with new embeddings. \\
+        \hline
         Main Flow & 
-        \begin{minipage}[t]{10cm}
-            \begin{enumerate}
-                \item The administrator uploads academic documents.
-                \item The system extracts textual content.
-                \item The text is divided into chunks.
-                \item Embeddings are generated.
-                \item Embeddings are stored in the vector database.
-            \end{enumerate}
-        \end{minipage} \\
+                The administrator uploads academic documents.\newline
+                The system extracts textual content. \newline
+                The text is divided into chunks.\newline
+                Embeddings are generated.\newline
+                Embeddings are stored in the vector database.\\
+        \hline
         Alternative Flow & If document processing fails, the system reports the error and terminates the indexing process. \\
         \hline
-    \end{tabular}
+    \end{tabularx}
 \end{table}
 
 % Table 2
@@ -60,30 +64,34 @@
     \caption{Generate Academic Response Use Case}
     \label{tab:generate_academic_response_use_case}
 
-    \begin{tabular}{|c|l|}
+    \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|}
         \hline
-        Field & Description \\
+        \textbf{Field} & \textbf{Description} \\
         \hline
         Use Case ID & UC-2 \\
+        \hline
         Use Case Name & Generate Academic Response \\
+        \hline
         Primary Actor & Client Application \\
+        \hline
         Description & Generates a syllabus-oriented explanation for the selected chapter or topic.\\
+        \hline
         Preconditions & The academic knowledge base has been created and the client application provides the required request parameters. \\
+        \hline
         Postconditions & The generated response is returned to the client in JSON format. \\
+        \hline
         Main Flow &
-        \begin{minipage}[t]{10cm}
-            \begin{enumerate}
-                \item The client application sends a request containing the syllabus, chapter, or topic information.
-                \item The API validates the request.
-                \item Relevant content is retrieved from the vector database.
-                \item The retrieved context is combined with the predefined prompt.
-                \item The LLM generates the response.
-                \item The API returns the generated response.
-            \end{enumerate} 
-        \end{minipage} \\
+                The client application sends a request containing the syllabus, chapter, or topic information.\newline
+                The API validates the request.
+                Relevant content is retrieved from the vector database.\newline
+                The retrieved context is combined with the predefined prompt.\newline
+                The LLM generates the response.\newline
+                The API returns the generated response.
+            \\
+        \hline
         Alternative Flow & If no relevant content is found, the system returns an appropriate message indicating that no matching academic content is available. \\
         \hline
-    \end{tabular}
+    \end{tabularx}
 \end{table}
 
 \subsubsection{Non-Fucntional Requirements}

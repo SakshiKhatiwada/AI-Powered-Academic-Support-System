@@ -17,14 +17,15 @@
     \item The system shall allow preprocessing of academic PDF documents for vector database creation.
 \end{enumerate}
 
-\begin{figure}[ht]
+\clearpage
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/use-case-diagram.png}
+    \includegraphics[width=\textwidth]{figures/use-case-diagram.png}
     \caption{Use Case Diagram}
     \label{fig:use_case_diagram}
 \end{figure}
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \caption{Build Knowledge Base Use Case}
     \label{tab:build_knowledge_base_use_case}
@@ -59,7 +60,7 @@
 \end{table}
 
 % Table 2
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \caption{Generate Academic Response Use Case}
     \label{tab:generate_academic_response_use_case}
@@ -142,9 +143,63 @@ To improve modularity and extensibility, the system employs abstraction through 
 
 The Object Diagram represents a runtime snapshot of the Academic Support System, illustrating the instantiated objects and their relationships during system execution. Unlike the Class Diagram, which presents the static structure of the system, the Object Diagram depicts actual instances of the service and adapter classes. The service (for ingestion service), \texttt{retrieval\_service}, and \texttt{generation\_service} objects collaborate with the SentenceTransformersAdapter, VectorDBAdapter, and LLMAdapter objects to perform document ingestion, semantic retrieval, vector database operations, and AI-based response generation. This diagram demonstrates how the instantiated components interact to support the execution of the Retrieval-Augmented Generation (RAG) pipeline. \par
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/class-diagram.png}
+    \includegraphics[width=\textwidth]{figures/class-diagram.png}
     \caption{Class Diagram}
     \label{fig:classdiagram}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/object-diagram.png}
+    \caption{Object Diagram}
+    \label{fig:objectdiagram}
+\end{figure}
+
+\subsubsection{Dynamic Modelling using State and Sequence Diagrams}
+The Sequence Diagram illustrates the interactions among the major components during the knowledge base creation process. When an administrator uploads an academic document along with its associated metadata, the request is received by the ingestion API router and forwarded to the IngestionService. The service first checks for any existing vectors associated with the same document and removes them from the vector database to prevent duplication. The uploaded PDF is then processed by the document loader to extract textual content, after which the extracted text is divided into smaller chunks using the chunking utility. The EmbeddingAdapter generates vector embeddings for each chunk, and the resulting embeddings, together with their metadata, are stored in the Qdrant vector database through the VectorDBAdapter. Once all vectors have been successfully stored, the system returns a confirmation response, completing the knowledge base creation process. \par
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/ingestion-flow-sequence-diagram.png}
+    \caption{Ingestion Service Sequence Diagram}
+    \label{fig:ingestion_service_sequence_diagram}
+\end{figure}
+
+The Sequence Diagram illustrates the interaction among the major components of the Academic Support System during the response generation process. When a user submits a request containing the selected chapter and related metadata, the request is received by the API router and forwarded to the GenerationService. The GenerationService invokes the RetrievalService to obtain relevant academic content. The RetrievalService generates an embedding for the request using the EmbeddingAdapter and performs a semantic similarity search in the Qdrant vector database through the VectorDBAdapter. The retrieved contextual information is returned to the GenerationService, which constructs an appropriate prompt and sends it to the LLMAdapter for response generation. Finally, the generated notes are returned to the client as a structured response. This sequence demonstrates the Retrieval-Augmented Generation (RAG) workflow implemented in the proposed system. \par
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/generation-flow-sequence-diagram.png}
+    \caption{Generation Flow Sequence Diagram}
+    \label{fig:generation_flow_sequence_diagram}
+\end{figure}
+
+The State Diagram Figure 3-6 illustrates the lifecycle of an academic document during the knowledge base creation process. The process begins when a PDF document is uploaded to the system, after which it enters the PDF Validated state to ensure the uploaded file is suitable for processing. The system then verifies the provided metadata. If the metadata is valid, the document proceeds to the ingestion stage. If metadata validation fails causing a JSONDecodeError, an HTTP exception is returned; however, if the metadata is optional or does not prevent processing, the document may still proceed to the ingestion stage. During ingestion, the document is processed, chunked, embedded, and stored in the vector database. If any error occurs during this stage, the system transitions to an error state and returns an HTTP exception. Otherwise, the process reaches the Success Response Returned state, indicating that the knowledge base has been successfully updated. \par
+
+The State Diagram Figure 3-7 illustrates the lifecycle of a note generation request within the proposed Academic Support System. The process begins when a user submits a request for note generation. The system first prepares the retrieval context and invokes the retrieval service to obtain relevant academic content from the knowledge base. The retrieved context is then passed to the generation service, where a prompt is constructed and submitted to the Large Language Model to generate the requested notes. Upon completion, the system evaluates the execution outcome. If an error occurs during retrieval or response generation, an HTTP exception is returned to the client. Otherwise, the generated notes are returned successfully, marking the completion of the request lifecycle. \par
+
+\begin{center}  
+    \begin{figure}[p]
+        \includegraphics[
+            width=\linewidth,
+            height=0.95\textheight,
+            keepaspectratio
+            ]{figures/ingestion-flow-state-diagram.pdf}
+            \caption{Ingestion Flow State Diagram}
+            \label{fig:ingestion_flow_state_diagram}
+        \end{figure}
+\end{center}
+        
+\begin{center}
+    \begin{figure}[p]
+    \includegraphics[
+        width=\linewidth,
+        height=0.95\textheight,
+        keepaspectratio
+        ]{figures/generation-flow-state-diagram.pdf}
+    \caption{Generation Flow State Diagram}
+    \label{fig:Generation_flow_state_diagram}
+    \end{figure}
+\end{center}

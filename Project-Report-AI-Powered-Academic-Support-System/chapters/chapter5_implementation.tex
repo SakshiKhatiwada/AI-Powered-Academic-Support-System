@@ -2,7 +2,7 @@
 \section{Implementations}
 \subsection{Tools Used}
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \caption{Tools Used}
     \label{tab:tools_used}
@@ -57,12 +57,12 @@ The adapter module provides abstraction for external services used by the system
 \subsection{Unit Testing}
 Unit testing was performed using the Pytest framework to verify the correctness of the PDF loading utility used during the document ingestion process. The tests covered both valid and invalid input scenarios, including normal text-based PDF documents, empty PDFs, image-only PDFs, corrupted PDF files, and unsupported file formats. The objective of these tests was to ensure that the document loader correctly extracted textual content, handled exceptional cases, and produced appropriate errors for invalid inputs. \par
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \caption{Unit Testing}
     \label{tab:unit_testing}
      \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|X|}
-
+        \hline
         \textbf{Test ID} & \textbf{Test Case} & \textbf{Expected Result} & \textbf{Status} \\
         \hline
         UT-01 & Load a valid text-based PDF & Text content extracted successfully & Pass \\
@@ -83,12 +83,12 @@ The unit testing results indicate that the PDF loading utility behaves correctly
 \subsubsection{System Testing}
 System testing was performed manually by executing the primary workflows of the application through the exposed REST API endpoints using Postman and the FastAPI Swagger UI. The testing focused on verifying the integration among the ingestion module, retrieval module, vector database, and language model to ensure that the system functioned correctly as a complete application. \par
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \caption{System Testing}
     \label{tab:system_testing}
      \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|X|}
-
+        \hline
         \textbf{Test ID} & \textbf{Test Scenario} & \textbf{Expected Result} & \textbf{Status} \\
         \hline
         ST-01 & Upload a valid academic PDF & Document processed and stored in the knowledge base & Pass \\

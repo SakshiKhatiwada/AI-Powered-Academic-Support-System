@@ -76,6 +76,14 @@
 % Better TOC
 % ------------------------------------------------------------
 \usepackage{tocloft}
+%-------------------------------------------------
+% Table of Contents Formatting
+%-------------------------------------------------
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftdotsep}{1}
+
+\setlength{\cftbeforechapskip}{6pt}
 
 % ------------------------------------------------------------
 % Titles
@@ -100,3 +108,5 @@
 \usepackage{booktabs}
 
 \usepackage{enumitem}
+
+\usepackage{svg}

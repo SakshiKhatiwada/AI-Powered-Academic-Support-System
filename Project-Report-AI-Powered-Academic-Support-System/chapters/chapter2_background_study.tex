@@ -1,0 +1,52 @@
+\chapter{Background study and Literature Review}
+
+% ============================================================
+% Paste the Introduction chapter from your Google Docs below.
+% ============================================================
+\section{Background Study}
+\subsection{Artificial Intelligence in Education}
+
+Artificial Intelligence \(AI\) has become increasingly important in modern educational systems by enabling personalized and interactive learning experiences. AI-powered educational platforms assist learners by generating learning materials, answering academic questions, summarizing content, and providing adaptive learning support. One of the major applications of AI in education is the Intelligent Tutoring System \(ITS\), which aims to emulate the guidance of a human tutor by determining what to teach, how to teach, and how to respond to learners based on their educational needs \cite{1wang2023its,4gan2023llmeducation}. \par
+
+Recent advances in AI, particularly in machine learning and natural language processing, have enabled educational assistants capable of delivering intelligent academic support, thereby improving the accessibility and effectiveness of digital learning resources \cite{1wang2023its,4gan2023llmeducation}. \par
+
+\subsection{Natural Language Processing and Large Language Models}
+Natural Language Processing (NLP) is a branch of artificial intelligence that enables computers to understand, process, and generate human language. NLP techniques are widely applied in educational systems for tasks such as question answering, document summarization, text classification, and automated content generation \cite{2yadav2022summarization,4gan2023llmeducation}. \par
+
+Large Language Models (LLMs) are deep learning models trained on massive collections of textual data to learn contextual relationships within language. These models can generate human-like responses, explain academic concepts, summarize documents, and assist learners through natural language interaction. Their ability to produce coherent and context-aware responses has made them an important component of modern AI-powered educational applications \cite{4gan2023llmeducation}. \par
+
+\subsection{Retrieval-Augmented Generation (RAG)}
+Retrieval-Augmented Generation (RAG) is an architecture that combines information retrieval techniques with Large Language Models to improve response quality. Rather than relying solely on the model's internal knowledge, a RAG system retrieves relevant information from an external knowledge base and incorporates the retrieved context during response generation \cite{5lewis2020rag}. \par
+
+A typical RAG pipeline consists of document preprocessing, text chunking, embedding generation, vector storage, semantic retrieval, and response generation. By grounding responses in retrieved documents, RAG improves factual accuracy and helps reduce hallucination in language model outputs \cite{5lewis2020rag}. \par
+
+\subsection{Vector Embeddings and Semantic Search}
+
+Vector embeddings are dense numerical representations of textual data generated using embedding models. These embeddings capture semantic relationships between pieces of text, allowing conceptually similar content to be located even when different words are used. \par
+
+Semantic search utilizes vector embeddings to retrieve contextually relevant information instead of relying solely on keyword matching. In RAG-based systems, embeddings are commonly stored in vector databases, where similarity search identifies the most relevant content for response generation \cite{5lewis2020rag,6asenov2025retrieval}.
+
+\subsection{Document Preprocessing}
+
+Educational resources are commonly distributed as PDF documents or other digital text formats. Before they can be utilized in retrieval-based systems, these documents must undergo preprocessing to extract and organize textual content. \par
+
+Typical preprocessing tasks include text extraction, text cleaning, normalization, document chunking, metadata organization, and embedding generation. The quality of preprocessing directly influences retrieval effectiveness, as poorly extracted or noisy text can significantly reduce the accuracy of semantic search and the quality of generated responses \cite{2yadav2022summarization,6asenov2025retrieval}. \par
+
+\subsection{Syllabus-Oriented Academic Support}
+Unlike general-purpose AI assistants, syllabus-oriented academic support systems organize learning materials according to predefined academic curricula. Such systems retrieve content based on chapters or topics defined in the syllabus, enabling students to receive explanations that remain consistent with prescribed course materials and examination requirements. This structured organization makes retrieval more focused and improves the relevance of generated educational content. \par
+
+\section{Literature Review}
+
+Artificial Intelligence (AI) has become increasingly important in education through the development of Intelligent Tutoring Systems (ITS), which assist learners by providing adaptive instruction, automated feedback, and personalized learning experiences. Recent studies have shown that modern ITS increasingly incorporate Large Language Models (LLMs) to generate explanations, answer academic questions, summarize educational content, and support student learning in a more interactive manner \cite{1wang2023its,4gan2023llmeducation}. \par
+
+The growing adoption of LLMs has significantly expanded the capabilities of educational applications. These models are capable of understanding natural language, generating coherent educational content, and supporting various instructional activities. However, LLMs may produce inaccurate or hallucinated information when relying solely on their internal knowledge, making them less reliable for academic environments that require factual consistency and syllabus alignment \cite{4gan2023llmeducation,5lewis2020rag}. \par
+
+To address this limitation, Retrieval-Augmented Generation (RAG) has emerged as an effective architecture that combines information retrieval with language generation. Instead of depending only on the pretrained knowledge of the language model, RAG retrieves relevant documents from an external knowledge base and incorporates the retrieved context during response generation. This approach improves factual accuracy, reduces hallucination, and enables responses to remain grounded in domain-specific information \cite{5lewis2020rag}. \par
+
+Several recent studies have further enhanced traditional RAG architectures. HybridRAG integrates multiple retrieval strategies using pre-generated question-answer pairs and raw unstructured documents to improve retrieval quality while reducing response latency \cite{3kim2025hybridrag}. Furthermore, recent research has shown that retrieval performance depends not only on retrieval algorithms but also on document representation, preprocessing quality, and embedding effectiveness, particularly in multilingual and visually rich educational documents \cite{6asenov2025retrieval}. \par
+
+Document preprocessing also plays an important role in retrieval-based educational systems. Educational resources are often available as scanned documents or PDF files containing complex formatting. Poor text extraction, OCR errors, and unstructured document organization can significantly reduce retrieval accuracy and negatively affect generated responses. Proper preprocessing, document cleaning, and structured representation improve the effectiveness of semantic retrieval and overall system performance \cite{2yadav2022summarization,6asenov2025retrieval}. \par
+
+Despite these advancements, many existing educational AI systems primarily focus on general-purpose question answering rather than providing syllabus-oriented academic assistance \cite{1wang2023its,4gan2023llmeducation}. Most RAG-based systems retrieve information from broad external knowledge sources, such as web documents or general knowledge repositories, which may not fully correspond to university curricula or examination requirements \cite{5lewis2020rag}. Consequently, students may receive responses that lack structured topic coverage and curriculum-specific organization. \par
+
+Motivated by these limitations, the proposed Academic Support System adopts a simple Retrieval-Augmented Generation architecture built upon structured syllabus materials. By organizing academic documents according to syllabus chapters and topics, generating semantic embeddings, and retrieving relevant educational content from a vector database before LLM-based response generation, the system aims to provide more organized, contextually relevant, and syllabus-aligned academic assistance for students. \par

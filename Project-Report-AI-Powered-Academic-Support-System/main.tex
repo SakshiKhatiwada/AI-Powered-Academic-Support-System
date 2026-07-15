@@ -44,7 +44,13 @@
 
 % ---------------- Table of Contents ----------------
 \clearpage
+\renewcommand{\contentsname}{Table of Contents}
 \tableofcontents
+
+%------------------- Acronyms -------------------
+\clearpage
+\input{acronyms}
+
 
 % ---------------- List of Figures ----------------
 \clearpage
@@ -86,8 +92,8 @@
 
 \clearpage
 
+\renewcommand{\bibname}{References}
 % Uncomment ONE of the following depending on your workflow.
-
 % ---------- Option A (Recommended): BibTeX ----------
 \bibliographystyle{IEEEtran}
 \bibliography{references}

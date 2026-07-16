@@ -18,11 +18,38 @@ The activity design describes the workflows followed by the system while perform
 The Component Diagram illustrates the high-level software architecture of the proposed Academic Support System by depicting its major functional components and their dependencies. The system is organized into modular layers consisting of API routers, service modules, adapter modules, and external resources. The API routers receive client requests and delegate processing to the appropriate service modules. The service layer performs document ingestion, semantic retrieval, and response generation by utilizing the embedding, vector database, and language model adapters. The adapters provide a layer of abstraction for external technologies such as the Sentence Transformers embedding model, the Qdrant vector database, and the Gemini Large Language Model. This modular component-based architecture promotes maintainability, extensibility, and separation of concerns, allowing individual components to be modified or replaced without affecting the overall system. \par
 
 % #NOTE figure here
+\begin{center}
+    \begin{figure}[H]a
+        \centering
+    \includegraphics[
+        % width=\linewidth,
+        % height=0.95\textheight,
+        % keepaspectratio,
+        scale=0.4
+        ]{figures/component-diagram.pdf}
+    \caption{Component Diagram}
+    \label{fig:component_diagram}
+    \end{figure}
+\end{center}
 
 \subsection{Deployment Diagram}
 The Deployment Diagram illustrates the physical deployment architecture of the proposed Academic Support System. The system is designed as a client-server application in which client requests are sent to a locally hosted FastAPI backend server through HTTP. The backend hosts the API routers, business logic, and supporting service modules responsible for document ingestion and note generation. The server communicates with a cloud-based Qdrant vector database for storing and retrieving document embeddings, while response generation is performed by invoking the cloud-hosted Google Gemini API. This deployment architecture clearly separates the application logic, vector database, and external language model service, resulting in a scalable and modular system design. \par
 
 %#NOTE - figure here
+\begin{center}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[
+        % width=\linewidth,
+        % height=0.95\textheight,
+        % keepaspectratio,
+        scale=0.4
+        ]{figures/deployment-diagram.pdf}
+    \caption{Deployment Diagram}
+    \label{fig:deployment_diagram}
+    \end{figure}
+\end{center}
+
 \section{Algorithm Details}
 
 \paragraph{Algorithm: Knowledge Base Creation}

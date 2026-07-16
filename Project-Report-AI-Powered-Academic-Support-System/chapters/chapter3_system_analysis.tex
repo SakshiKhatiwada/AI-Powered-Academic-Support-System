@@ -203,3 +203,33 @@ The State Diagram Figure 3-7 illustrates the lifecycle of a note generation requ
     \label{fig:Generation_flow_state_diagram}
     \end{figure}
 \end{center}
+
+\subsubsection{Process Modelling using Activity Diagram}
+
+\begin{center}
+    \begin{figure}[p]
+    \includegraphics[
+        width=\linewidth,
+        height=\textheight,
+        keepaspectratio
+        ]{figures/ingestion-flow-activity-diagram.pdf}
+    \caption{Ingestion Flow Activity Diagram}
+    \label{fig:ingestion_flow_acitvity_diagram}
+    \end{figure}
+\end{center}
+
+The Activity Diagram ~\ref{fig:ingestion_flow_acitvity_diagram} illustrates the workflow followed during the knowledge base creation process. The process begins with uploading an academic PDF document, followed by document validation and metadata verification. Upon successful validation, the system processes the document, generates vector embeddings, and stores them in the vector database. If an error occurs during validation or ingestion, the workflow terminates by returning an appropriate error response. Otherwise, the system completes the process by returning a successful response, indicating that the knowledge base has been updated. \par
+
+\begin{center}
+    \begin{figure}[p]
+    \includegraphics[
+        width=\linewidth,
+        height=\textheight,
+        keepaspectratio
+        ]{figures/generation-flow-activity-diagram.pdf}
+    \caption{Generation Flow Activity Diagram}
+    \label{fig:generation_flow_activity_diagram}
+    \end{figure}
+\end{center}
+
+The Activity Diagram ~\ref{fig:generation_flow_activity_diagram} illustrates the workflow of the note generation process. The process starts when a user submits a request for notes. The system prepares the retrieval context, retrieves relevant academic content from the vector database, and generates notes using the Large Language Model. The workflow concludes by returning the generated response to the user. If an error occurs during retrieval or response generation, the system terminates the process and returns an appropriate error response. \par

@@ -18,8 +18,7 @@ The activity design describes the workflows followed by the system while perform
 The Component Diagram illustrates the high-level software architecture of the proposed Academic Support System by depicting its major functional components and their dependencies. The system is organized into modular layers consisting of API routers, service modules, adapter modules, and external resources. The API routers receive client requests and delegate processing to the appropriate service modules. The service layer performs document ingestion, semantic retrieval, and response generation by utilizing the embedding, vector database, and language model adapters. The adapters provide a layer of abstraction for external technologies such as the Sentence Transformers embedding model, the Qdrant vector database, and the Gemini Large Language Model. This modular component-based architecture promotes maintainability, extensibility, and separation of concerns, allowing individual components to be modified or replaced without affecting the overall system. \par
 
 % #NOTE figure here
-\begin{center}
-    \begin{figure}[H]
+\begin{figure}[H]
         \centering
     \includegraphics[
         % width=\linewidth,
@@ -29,14 +28,12 @@ The Component Diagram illustrates the high-level software architecture of the pr
         ]{figures/component-diagram.pdf}
     \caption{Component Diagram}
     \label{fig:component_diagram}
-    \end{figure}
-\end{center}
+\end{figure}
 
 \subsection{Deployment Diagram}
 The Deployment Diagram illustrates the physical deployment architecture of the proposed Academic Support System. The system is designed as a client-server application in which client requests are sent to a locally hosted FastAPI backend server through HTTP. The backend hosts the API routers, business logic, and supporting service modules responsible for document ingestion and note generation. The server communicates with a cloud-based Qdrant vector database for storing and retrieving document embeddings, while response generation is performed by invoking the cloud-hosted Google Gemini API. This deployment architecture clearly separates the application logic, vector database, and external language model service, resulting in a scalable and modular system design. \par
 
 %#NOTE - figure here
-\begin{center}
     \begin{figure}[H]
         \centering
     \includegraphics[
@@ -48,14 +45,14 @@ The Deployment Diagram illustrates the physical deployment architecture of the p
     \caption{Deployment Diagram}
     \label{fig:deployment_diagram}
     \end{figure}
-\end{center}
 
 \section{Algorithm Details}
 
-\paragraph{Algorithm: Knowledge Base Creation}
-
-Input: Subject ID, Document ID, PDF document, metadata
-Output: Updated knowledge base \par
+\begin{description}
+    \item[Algorithm:] \textbf{Knowledge Base Creation}
+    \item[Input:] Subject ID, Document ID, PDF document, metadata
+    \item[Output:] Updated knowledge base
+\end{description}
 
 \begin{enumerate}
     \item Receive the uploaded PDF document and its associated metadata.
@@ -70,12 +67,11 @@ Output: Updated knowledge base \par
     \item If any error occurs during processing, return an appropriate error response.
 \end{enumerate}
 
-\paragraph{Algorithm: Note Generation using RAG}
-
-
-Input: Chapter/topic information and metadata
-Output: Generated academic notes \par
-
+\begin{description}
+    \item[Algorithm:] \textbf{Note Generation using RAG}
+    \item[Input:] Chapter/topic information and metadata
+    \item[Output:] Generated academic notes
+\end{description}
 \begin{enumerate} 
     \item Receive the note generation request.
     \item Prepare the retrieval context from the request metadata.

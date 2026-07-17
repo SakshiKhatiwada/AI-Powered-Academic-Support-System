@@ -11,9 +11,9 @@ Recent advances in large language models (LLMs) have enabled automated explanati
 This lack of syllabus alignment limits the usefulness of AI tools for structured academic preparation. Therefore, there is a need for an intelligent system that integrates syllabus structure with AI-driven content generation to produce organized, exam-oriented study materials.
 
 \subsection{Motivation}
-With the rapid growth of digital learning resources and Artificial Intelligence technologies, students today have access to vast amounts of academic content. However, finding relevant information from lengthy course materials and obtaining accurate, syllabus-oriented explanations remains a major challenge. Traditional search systems mainly rely on keyword matching and often fail to understand the actual conceptual meaning behind academic queries. Similarly, general-purpose AI chatbots may generate responses that are not aligned with specific curricula and can sometimes produce inaccurate or hallucinated information. \par
+With the rapid growth of digital learning resources and Artificial Intelligence technologies, students today have access to vast amounts of academic content. However, finding relevant information from lengthy course materials and obtaining accurate, syllabus-oriented explanations remains a major challenge. Traditional study materials mainly rely on lengthy complex paragraphs and often difficult to understand on their own, and students fail to understand the actual conceptual meaning behind them. Similarly, general-purpose AI chatbots may help students to understand the complex topics, but they generate responses that are not aligned with specific curricula and can sometimes produce inaccurate or hallucinated information. \par
 
-The motivation behind developing the AI-Powered Academic Support System is to address these limitations by creating an intelligent academic assistant capable of understanding both course materials and student queries semantically. The project combines Retrieval-Augmented Generation (RAG), vector databases, and Large Language Models to provide context-aware, syllabus-aligned, and academically grounded responses. By enabling semantic search using Cosine Similarity over uploaded academic PDFs, the system helps students quickly retrieve relevant learning materials and receive explanatory answers tailored to their curriculum, aiming to improve study efficiency and provide learners with consistent, exam-oriented learning support. \par
+The motivation behind developing the AI-Powered Academic Support System is to address these limitations by creating an intelligent academic assistant capable of giving syllabus-aligned course materials. The project combines Retrieval-Augmented Generation (RAG), vector databases, and Large Language Models to provide context-aware, syllabus-aligned, and academically grounded responses. By enabling semantic search using Cosine Similarity over uploaded academic PDFs, the system helps students quickly retrieve relevant learning materials and receive explanatory answers tailored to their curriculum, aiming to improve study efficiency and provide learners with consistent, exam-oriented learning support. \par
 
 Another major motivation for this project is to explore the practical integration of modern AI technologies into the education domain. The system demonstrates how embedding models, vector similarity search, prompt engineering, and language models can work together to enhance the learning experience. Additionally, the modular architecture of the platform provides a scalable foundation for future educational features such as personalized learning, quiz generation, conversational tutoring, and adaptive academic assistance. \par
 
@@ -25,7 +25,7 @@ Off-the-shelf AI content generators create answers in a free-form way, ignoring 
 The objectives of this project are:
 \begin{itemize}
     \item Design a syllabus-aware academic support system that integrates course metadata (chapters, topics, subtopics, and credit hours) with reference learning materials to guide AI-based content generation.
-    \item Develop a retrieval-augmented generation (RAG) pipeline that retrieves relevant syllabus-specific content from indexed academic resources and generates structured, exam-oriented study notes
+    \item Develop a retrieval-augmented generation (RAG) pipeline that retrieves relevant syllabus-specific content from indexed academic resources and generates structured, exam-oriented study notes.
 \end{itemize}
 
 \section{Scope and Application}
@@ -44,13 +44,13 @@ The proposed system can serve multiple educational purposes:
     \item Assisting students in preparing structured and syllabus-aligned study notes for examinations.
     \item Helping instructors generate concise summaries and teaching materials based on course syllabi.
     \item Supporting learning management systems (LMS) by automatically producing curriculum-aware summaries and study guides.
-    \item Enabling educational institutions to provide AI-assisted academic support tools that complement traditional teaching resources
+    \item Enabling educational institutions to provide AI-assisted academic support tools that complement traditional teaching resources.
 \end{itemize}
 
 \section{Development Methodology}
 The development of the AI-Powered Academic Support System followed a modular and iterative methodology to ensure scalability, maintainability, and efficient integration of Artificial Intelligence components. The system was developed by dividing the overall workflow into independent modules such as document ingestion, text processing, embedding generation, semantic retrieval, and response generation. \par
 
-Initially, requirement analysis was performed to identify the major functionalities of the system, including PDF processing, semantic search, syllabus-oriented retrieval, and AI-generated academic assistance. Based on these requirements, the overall Retrieval-Augmented Generation (RAG) architecture of the system was designed. \par
+Initially, requirement analysis was performed to identify the major functionalities of the system, including PDF processing, semantic search, relevant context retrieval, and syllabus-oriented AI-generated academic assistance. Based on these requirements, the overall Retrieval-Augmented Generation (RAG) architecture of the system was designed. \par
 
 During the implementation phase, academic PDF documents were processed using PDF loading utilities, and the extracted text was divided into smaller semantic chunks to improve retrieval accuracy. Transformer-based sentence embedding models were then used to convert textual chunks into vector representations. These embeddings were stored in the Qdrant vector database to enable semantic similarity search. \par
 
@@ -66,7 +66,7 @@ This report is organized into six chapters. \par
 
 Chapter 1 introduces the AI-Powered Academic Support System, including the problem statement, objectives, scope and limitations, and development methodology. \par
 
-Chapter 2 presents the background study and literature review related to Artificial Intelligence, Retrieval-Augmented Generation (RAG), vector databases, semantic retrieval, and similar academic support systems. \par 
+Chapter 2 presents the background study and literature review related to Artificial Intelligence, Retrieval-Augmented Generation (RAG), vector databases, semantic retrieval. \par 
 
 Chapter 3 describes the system analysis, including requirement analysis, feasibility analysis, and object-oriented modelling of the system. \par
 

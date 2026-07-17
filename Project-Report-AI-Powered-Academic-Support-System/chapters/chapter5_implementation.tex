@@ -1,15 +1,23 @@
 \chapter{IMPLEMENTATION AND TESTING}
 \section{Implementations}
+The implementation phase involved translating the proposed system design into a functional AI-powered academic support platform.\par
+
 \subsection{Tools Used}
 
-\begin{table}[H]
-    \centering
-    \caption{Tools Used}
-    \label{tab:tools_used}
-     \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|}
+The proposed system was implemented using modern software development tools and frameworks. Python served as the primary programming language due to its extensive ecosystem for AI and backend development. FastAPI was used to build high-performance REST APIs, while LangChain facilitated document processing and prompt management. Sentence Transformers generated semantic embeddings, and Qdrant was employed as the vector database for efficient similarity search. The Gemini Large Language Model was integrated to generate context-aware academic responses. Development and testing were carried out using Visual Studio Code, Postman, and Pytest. \par
+
+\begin{xltabular}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|}
+    \caption{Tools Used} \\
         \hline
         \textbf{Category} & \textbf{Tools/Technology} & \textbf{Purpose} \\
         \hline
+        \endfirsthead
+
+        \hline
+        \textbf{Category} & \textbf{Tools/Technology} & \textbf{Purpose} \\
+        \hline
+        \endhead
+
         Programming Language & Python 3.12 & Backend development \\
         \hline
         Web Framework & FastAPI & REST API development \\
@@ -36,19 +44,18 @@
         \hline
         IDE & Visual Studio Code & Development and debugging \\     
         \hline
-    \end{tabularx}
-\end{table}
+\end{xltabular}
 
 \subsection{Implementation Details of Modules}
 
 \subsubsection{Ingestion Module}
-The ingestion module is responsible for constructing the knowledge base from academic PDF documents. It validates uploaded documents, extracts textual content, divides the content into smaller chunks, generates semantic embeddings, and stores the resulting vectors together with metadata in the Qdrant vector database. This module is implemented primarily through the IngestionService, supported by document loading utilities, chunking utilities, embedding adapters, and vector database adapters. \par
+The ingestion module is responsible for constructing the knowledge base from academic PDF documents. It validates uploaded documents, extracts textual content, divides the content into smaller chunks, generates semantic embeddings, and stores the resulting vectors together with metadata in the Qdrant vector database. This module is implemented primarily through the \texttt{IngestionService}, supported by document loading utilities, chunking utilities, embedding adapters, and vector database adapters. \par
 
 \subsubsection{Retrieval Module}
 The retrieval module performs semantic search over the knowledge base. It generates embeddings for the requested chapter or topic and searches the Qdrant vector database to retrieve the most relevant academic content. The retrieved information provides contextual knowledge for the response generation process. This functionality is implemented through the RetrievalService together with the embedding and vector database adapters. \par
 
 \subsubsection{Generation Module}
-The generation module produces structured academic notes using the retrieved contextual information. It combines the retrieved content with predefined prompts before sending the request to the Google Gemini Large Language Model. The generated response is then returned to the client as structured academic notes. This functionality is implemented by the GenerationService and the GeminiAdapter. \par
+The generation module produces structured academic notes using the retrieved contextual information. It combines the retrieved content with predefined prompts before sending the request to the Google Gemini Large Language Model. The generated response is then returned to the client as structured academic notes. This functionality is implemented by the \texttt{GenerationService} and the \texttt{GeminiAdapter}. \par
 
 \subsubsection{Adapter Module}
 The adapter module provides abstraction for external services used by the system. Abstract adapter interfaces define common operations, while concrete adapter implementations provide these functionalities using Sentence Transformers, Qdrant, and the Google Gemini API. This modular design promotes loose coupling and allows underlying technologies to be replaced with minimal changes to the remaining system components.
@@ -57,14 +64,19 @@ The adapter module provides abstraction for external services used by the system
 \subsection{Unit Testing}
 Unit testing was performed using the Pytest framework to verify the correctness of the PDF loading utility used during the document ingestion process. The tests covered both valid and invalid input scenarios, including normal text-based PDF documents, empty PDFs, image-only PDFs, corrupted PDF files, and unsupported file formats. The objective of these tests was to ensure that the document loader correctly extracted textual content, handled exceptional cases, and produced appropriate errors for invalid inputs. \par
 
-\begin{table}[H]
-    \centering
-    \caption{Unit Testing}
-    \label{tab:unit_testing}
-     \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|X|}
-        \hline
+\begin{xltabular}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|X|}
+    \caption{Unit Testing} \\
+    
+    \hline
         \textbf{Test ID} & \textbf{Test Case} & \textbf{Expected Result} & \textbf{Status} \\
-        \hline
+    \hline
+    \endfirsthead
+
+    \hline
+        \textbf{Test ID} & \textbf{Test Case} & \textbf{Expected Result} & \textbf{Status} \\
+    \hline
+    \endhead
+
         UT-01 & Load a valid text-based PDF & Text content extracted successfully & Pass \\
         \hline
         UT-02 & Load an empty PDF & Empty page content returned without errors & Pass \\
@@ -75,22 +87,26 @@ Unit testing was performed using the Pytest framework to verify the correctness 
         \hline
         UT-05 & Load a non-PDF file & ValueError exception raised & Pass \\
         \hline
-    \end{tabularx}
-\end{table}
+\end{xltabular}
 
 The unit testing results indicate that the PDF loading utility behaves correctly under both normal and exceptional conditions. The implemented tests verify successful document loading as well as appropriate error handling for unsupported or malformed inputs, thereby improving the reliability of the document ingestion pipeline. \par
 
 \subsubsection{System Testing}
 System testing was performed manually by executing the primary workflows of the application through the exposed REST API endpoints using Postman and the FastAPI Swagger UI. The testing focused on verifying the integration among the ingestion module, retrieval module, vector database, and language model to ensure that the system functioned correctly as a complete application. \par
 
-\begin{table}[H]
-    \centering
-    \caption{System Testing}
-    \label{tab:system_testing}
-     \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|X|}
+\begin{xltabular}{\textwidth}{|>{\bfseries}p{3.5cm}|X|X|X|}
+    \caption{System Testing} \\
+
         \hline
         \textbf{Test ID} & \textbf{Test Scenario} & \textbf{Expected Result} & \textbf{Status} \\
         \hline
+        \endfirsthead
+
+        \hline
+        \textbf{Test ID} & \textbf{Test Scenario} & \textbf{Expected Result} & \textbf{Status} \\
+        \hline
+        \endhead
+        
         ST-01 & Upload a valid academic PDF & Document processed and stored in the knowledge base & Pass \\
         \hline
         ST-02 & Upload a corrupted PDF & Error response returned & Pass \\
@@ -101,8 +117,7 @@ System testing was performed manually by executing the primary workflows of the 
         \hline
         ST-05 & Upload an existing document again & Existing knowledge base updated successfully & Pass \\
         \hline
-    \end{tabularx}
-\end{table}
+\end{xltabular}
 
 \subsection{Result Analysis}
 The implemented Academic Support System successfully performed both document ingestion and note generation as intended. Uploaded academic PDF documents were processed, converted into semantic embeddings, and stored in the Qdrant vector database. During note generation, the system retrieved contextually relevant content from the knowledge base and generated structured academic notes using the Google Gemini Large Language Model. Unit testing confirmed the correctness of document processing utilities, while system-level testing demonstrated successful integration among the ingestion, retrieval, and generation modules. Overall, the system achieved the intended objectives of providing syllabus-oriented academic support through a Retrieval-Augmented Generation architecture. \par

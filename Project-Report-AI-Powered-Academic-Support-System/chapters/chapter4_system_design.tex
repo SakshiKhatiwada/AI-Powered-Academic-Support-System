@@ -4,7 +4,7 @@
 
 \subsection{Refinement of Class, Object, State, Sequence and Activity Diagrams}
 
-The final implementation follows the class structure identified during system analysis. The system is organized into service classes, adapter classes, routers, and utility modules. Abstract adapter classes provide common interfaces for embedding generation, vector database operations, and language model interaction, while concrete implementations such as SentenceTransformersAdapter, QdrantAdapter, and GeminiAdapter implement the required functionality. This modular design promotes extensibility and loose coupling. \par
+The final implementation follows the class structure identified during system analysis. The system is organized into service classes, adapter classes, routers, and utility modules. Abstract adapter classes provide common interfaces for embedding generation, vector database operations, and language model interaction, while concrete implementations such as \texttt{SentenceTransformersAdapter}, \texttt{QdrantAdapter}, and \texttt{GeminiAdapter} implement the required functionality. This modular design promotes extensibility and loose coupling. \par
 
 The object design represents the runtime instantiation of the system components during execution. Service objects responsible for document ingestion, semantic retrieval, and response generation collaborate with instantiated adapter objects that manage embedding generation, vector database communication, and language model interaction. These runtime objects work together to process requests while maintaining clear separation of responsibilities. The object-oriented design enables efficient interaction among system components without introducing unnecessary dependencies. \par 
 
@@ -19,13 +19,13 @@ The Component Diagram illustrates the high-level software architecture of the pr
 
 % #NOTE figure here
 \begin{center}
-    \begin{figure}[H]a
+    \begin{figure}[H]
         \centering
     \includegraphics[
         % width=\linewidth,
         % height=0.95\textheight,
         % keepaspectratio,
-        scale=0.4
+        scale=0.3
         ]{figures/component-diagram.pdf}
     \caption{Component Diagram}
     \label{fig:component_diagram}
@@ -43,7 +43,7 @@ The Deployment Diagram illustrates the physical deployment architecture of the p
         % width=\linewidth,
         % height=0.95\textheight,
         % keepaspectratio,
-        scale=0.4
+        scale=0.3
         ]{figures/deployment-diagram.pdf}
     \caption{Deployment Diagram}
     \label{fig:deployment_diagram}
@@ -53,6 +53,7 @@ The Deployment Diagram illustrates the physical deployment architecture of the p
 \section{Algorithm Details}
 
 \paragraph{Algorithm: Knowledge Base Creation}
+
 Input: Subject ID, Document ID, PDF document, metadata
 Output: Updated knowledge base \par
 
@@ -70,6 +71,7 @@ Output: Updated knowledge base \par
 \end{enumerate}
 
 \paragraph{Algorithm: Note Generation using RAG}
+
 
 Input: Chapter/topic information and metadata
 Output: Generated academic notes \par

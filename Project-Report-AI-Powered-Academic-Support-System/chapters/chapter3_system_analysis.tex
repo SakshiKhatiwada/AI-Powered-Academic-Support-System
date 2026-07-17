@@ -2,10 +2,14 @@
 
 \section{System Analysis}
 
+System analysis involves examining the functional and non-functional requirements of the proposed system and identifying the components necessary to achieve the project objectives. It defines the expected behaviour of the system, analyzes user interactions, and establishes the overall scope and feasibility of the proposed solution. The findings of this analysis serve as the basis for the subsequent system design and implementation phases.
+
+
 \subsection{Requirement Analysis}
+Requirement analysis identifies the features, constraints, and expectations that the system must satisfy. It helps translate user needs into clearly defined system requirements, ensuring that the developed solution addresses the intended academic use cases while maintaining reliability, usability, and performance.
 
 \subsubsection{Functional Requirements}
-
+Functional requirements describe the core services and operations that the system must perform to meet its intended objectives. These requirements define the interactions between users and the system, outlining the essential functionalities required for document ingestion, semantic retrieval, and AI-assisted response generation.
 \begin{enumerate}
     \item The system shall accept a syllabus, chapter, or topic selection from the client application.
     \item The system shall retrieve the corresponding academic content from the vector database using semantic similarity search.
@@ -17,7 +21,6 @@
     \item The system shall allow preprocessing of academic PDF documents for vector database creation.
 \end{enumerate}
 
-\clearpage
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/use-case-diagram.png}
@@ -25,16 +28,19 @@
     \label{fig:use_case_diagram}
 \end{figure}
 
-\begin{table}[H]
-    \centering
-    \caption{Build Knowledge Base Use Case}
-    \label{tab:build_knowledge_base_use_case}
-
-    \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|}
+\begin{xltabular}{\textwidth}{|c|X|}
+    \caption{Build Knowledge Base Use Case} \\
 
         \hline
         \textbf{Field} & \textbf{Description} \\
         \hline
+        \endfirsthead
+
+        \hline
+        \textbf{Field} & \textbf{Description} \\
+        \hline
+        \endhead
+
         Use Case ID & UC-1 \\
         \hline
         Use Case Name & Build Knowledge Base \\
@@ -47,17 +53,18 @@
         \hline
         Postconditions & The vector database is updated with new embeddings. \\
         \hline
-        Main Flow & 
-                The administrator uploads academic documents.\newline
-                The system extracts textual content. \newline
-                The text is divided into chunks.\newline
-                Embeddings are generated.\newline
+        Main Flow &
+        \begin{minipage}[t]{\linewidth} 
+                The administrator uploads academic documents.\\
+                The system extracts textual content. \\
+                The text is divided into chunks.\\
+                Embeddings are generated.\\
                 Embeddings are stored in the vector database.\\
+        \end{minipage} \\
         \hline
         Alternative Flow & If document processing fails, the system reports the error and terminates the indexing process. \\
         \hline
-    \end{tabularx}
-\end{table}
+\end{xltabular}
 
 % Table 2
 \begin{table}[H]
@@ -83,7 +90,6 @@
         \hline
         Main Flow &
                 The client application sends a request containing the syllabus, chapter, or topic information.\newline
-                The API validates the request.
                 Relevant content is retrieved from the vector database.\newline
                 The retrieved context is combined with the predefined prompt.\newline
                 The LLM generates the response.\newline
@@ -137,11 +143,11 @@ The project is schedule feasible as it can be completed within the allocated aca
 \subsection{Object-Oriented Analysis}
 
 \subsubsection{Object Modelling using Class and Object Diagrams}
-The class diagram illustrates the structural organization of the proposed Academic Support System and the relationships among its major software components. The system follows a modular architecture consisting of service classes and adapter classes. The IngestionService is responsible for processing academic documents, generating embeddings, and storing vector representations in the vector database. The RetrievalService performs semantic retrieval by generating embeddings for the requested topic and searching the vector database for relevant content. The GenerationService constructs prompts using the retrieved context and invokes the language model to generate academic explanations. \par
+The class diagram illustrates the structural organization of the proposed Academic Support System and the relationships among its major software components. The system follows a modular architecture consisting of service classes and adapter classes. The \texttt{IngestionService} is responsible for processing academic documents, generating embeddings, and storing vector representations in the vector database. The \texttt{RetrievalService} performs semantic retrieval by generating embeddings for the requested topic and searching the vector database for relevant content. The \texttt{GenerationService} constructs prompts using the retrieved context and invokes the language model to generate academic explanations. \par
 
-To improve modularity and extensibility, the system employs abstraction through the EmbeddingAdapter, VectorDBAdapter, and LLMAdapter abstract classes. Their concrete implementations\texttt{--} SentenceTransformersAdapter, QdrantAdapter, and GeminiAdapter\texttt{--} provide the actual embedding generation, vector database operations, and language model interactions, respectively. This design reduces coupling between components, promotes code reusability, and allows different implementations to be substituted with minimal changes to the core services. \par
+To improve modularity and extensibility, the system employs abstraction through the \texttt{EmbeddingAdapter}, \texttt{VectorDBAdapter}, and \texttt{LLMAdapter} abstract classes. Their concrete implementations-- \texttt{SentenceTransformersAdapter}, \texttt{QdrantAdapter}, and \texttt{GeminiAdapter}-- provide the actual embedding generation, vector database operations, and language model interactions, respectively. This design reduces coupling between components, promotes code reusability, and allows different implementations to be substituted with minimal changes to the core services. \par
 
-The Object Diagram represents a runtime snapshot of the Academic Support System, illustrating the instantiated objects and their relationships during system execution. Unlike the Class Diagram, which presents the static structure of the system, the Object Diagram depicts actual instances of the service and adapter classes. The service (for ingestion service), \texttt{retrieval\_service}, and \texttt{generation\_service} objects collaborate with the SentenceTransformersAdapter, VectorDBAdapter, and LLMAdapter objects to perform document ingestion, semantic retrieval, vector database operations, and AI-based response generation. This diagram demonstrates how the instantiated components interact to support the execution of the Retrieval-Augmented Generation (RAG) pipeline. \par
+The Object Diagram represents a runtime snapshot of the Academic Support System, illustrating the instantiated objects and their relationships during system execution. Unlike the Class Diagram, which presents the static structure of the system, the Object Diagram depicts actual instances of the service and adapter classes. The \texttt{service} (for ingestion service), \texttt{retrieval\_service}, and \texttt{generation\_service} objects collaborate with the \texttt{SentenceTransformersAdapter}, \texttt{VectorDBAdapter}, and \texttt{LLMAdapter} objects to perform document ingestion, semantic retrieval, vector database operations, and AI-based response generation. This diagram demonstrates how the instantiated components interact to support the execution of the Retrieval-Augmented Generation (RAG) pipeline. \par
 
 \begin{figure}[H]
     \centering
@@ -158,7 +164,7 @@ The Object Diagram represents a runtime snapshot of the Academic Support System,
 \end{figure}
 
 \subsubsection{Dynamic Modelling using State and Sequence Diagrams}
-The Sequence Diagram illustrates the interactions among the major components during the knowledge base creation process. When an administrator uploads an academic document along with its associated metadata, the request is received by the ingestion API router and forwarded to the IngestionService. The service first checks for any existing vectors associated with the same document and removes them from the vector database to prevent duplication. The uploaded PDF is then processed by the document loader to extract textual content, after which the extracted text is divided into smaller chunks using the chunking utility. The EmbeddingAdapter generates vector embeddings for each chunk, and the resulting embeddings, together with their metadata, are stored in the Qdrant vector database through the VectorDBAdapter. Once all vectors have been successfully stored, the system returns a confirmation response, completing the knowledge base creation process. \par
+The Ingestion Flow Sequence Diagram illustrates the interactions among the major components during the knowledge base creation process. When an administrator uploads an academic document along with its associated metadata, the request is received by the ingestion API router and forwarded to the IngestionService. The service first checks for any existing vectors associated with the same document and removes them from the vector database to prevent duplication. The uploaded PDF is then processed by the document loader to extract textual content, after which the extracted text is divided into smaller chunks using the chunking utility. The \texttt{EmbeddingAdapter} generates vector embeddings for each chunk, and the resulting embeddings, together with their metadata, are stored in the Qdrant vector database through the \texttt{VectorDBAdapter}. Once all vectors have been successfully stored, the system returns a confirmation response, completing the knowledge base creation process. \par
 
 \begin{figure}[H]
     \centering
@@ -167,7 +173,7 @@ The Sequence Diagram illustrates the interactions among the major components dur
     \label{fig:ingestion_service_sequence_diagram}
 \end{figure}
 
-The Sequence Diagram illustrates the interaction among the major components of the Academic Support System during the response generation process. When a user submits a request containing the selected chapter and related metadata, the request is received by the API router and forwarded to the GenerationService. The GenerationService invokes the RetrievalService to obtain relevant academic content. The RetrievalService generates an embedding for the request using the EmbeddingAdapter and performs a semantic similarity search in the Qdrant vector database through the VectorDBAdapter. The retrieved contextual information is returned to the GenerationService, which constructs an appropriate prompt and sends it to the LLMAdapter for response generation. Finally, the generated notes are returned to the client as a structured response. This sequence demonstrates the Retrieval-Augmented Generation (RAG) workflow implemented in the proposed system. \par
+The Generation Flow Sequence Diagram illustrates the interaction among the major components of the Academic Support System during the response generation process. When a user submits a request containing the selected chapter and related metadata, the request is received by the API router and forwarded to the \texttt{GenerationService}. The \texttt{GenerationService} invokes the \texttt{RetrievalService} to obtain relevant academic content. The \texttt{RetrievalService} generates an embedding for the request using the \texttt{EmbeddingAdapter} and performs a semantic similarity search in the Qdrant vector database through the \texttt{VectorDBAdapter}. The retrieved contextual information is returned to the \texttt{GenerationService}, which constructs an appropriate prompt and sends it to the \texttt{LLMAdapter} for response generation. Finally, the generated notes are returned to the client as a structured response. This sequence demonstrates the Retrieval-Augmented Generation (RAG) workflow implemented in the proposed system. \par
 
 \begin{figure}[H]
     \centering
@@ -176,12 +182,11 @@ The Sequence Diagram illustrates the interaction among the major components of t
     \label{fig:generation_flow_sequence_diagram}
 \end{figure}
 
-The State Diagram Figure 3-6 illustrates the lifecycle of an academic document during the knowledge base creation process. The process begins when a PDF document is uploaded to the system, after which it enters the PDF Validated state to ensure the uploaded file is suitable for processing. The system then verifies the provided metadata. If the metadata is valid, the document proceeds to the ingestion stage. If metadata validation fails causing a JSONDecodeError, an HTTP exception is returned; however, if the metadata is optional or does not prevent processing, the document may still proceed to the ingestion stage. During ingestion, the document is processed, chunked, embedded, and stored in the vector database. If any error occurs during this stage, the system transitions to an error state and returns an HTTP exception. Otherwise, the process reaches the Success Response Returned state, indicating that the knowledge base has been successfully updated. \par
+The State Diagram Figure \ref{fig:ingestion_flow_state_diagram} illustrates the lifecycle of an academic document during the knowledge base creation process. The process begins when a PDF document is uploaded to the system, after which it enters the PDF Validated state to ensure the uploaded file is suitable for processing. The system then verifies the provided metadata. If the metadata is valid, the document proceeds to the ingestion stage. If metadata validation fails causing a JSONDecodeError, an HTTP exception is returned; however, if the metadata is optional or does not prevent processing, the document may still proceed to the ingestion stage. During ingestion, the document is processed, chunked, embedded, and stored in the vector database. If any error occurs during this stage, the system transitions to an error state and returns an HTTP exception. Otherwise, the process reaches the Success Response Returned state, indicating that the knowledge base has been successfully updated. \par
 
-The State Diagram Figure 3-7 illustrates the lifecycle of a note generation request within the proposed Academic Support System. The process begins when a user submits a request for note generation. The system first prepares the retrieval context and invokes the retrieval service to obtain relevant academic content from the knowledge base. The retrieved context is then passed to the generation service, where a prompt is constructed and submitted to the Large Language Model to generate the requested notes. Upon completion, the system evaluates the execution outcome. If an error occurs during retrieval or response generation, an HTTP exception is returned to the client. Otherwise, the generated notes are returned successfully, marking the completion of the request lifecycle. \par
+The State Diagram Figure \ref{fig:Generation_flow_state_diagram} illustrates the lifecycle of a note generation request within the proposed Academic Support System. The process begins when a user submits a request for note generation. The system first prepares the retrieval context and invokes the retrieval service to obtain relevant academic content from the knowledge base. The retrieved context is then passed to the generation service, where a prompt is constructed and submitted to the Large Language Model to generate the requested notes. Upon completion, the system evaluates the execution outcome. If an error occurs during retrieval or response generation, an HTTP exception is returned to the client. Otherwise, the generated notes are returned successfully, marking the completion of the request lifecycle. \par
 
-\begin{center}  
-    \begin{figure}[p]
+\begin{figure}[p]
         \includegraphics[
             width=\linewidth,
             height=0.95\textheight,
@@ -189,11 +194,9 @@ The State Diagram Figure 3-7 illustrates the lifecycle of a note generation requ
             ]{figures/ingestion-flow-state-diagram.pdf}
             \caption{Ingestion Flow State Diagram}
             \label{fig:ingestion_flow_state_diagram}
-        \end{figure}
-\end{center}
+    \end{figure}
         
-\begin{center}
-    \begin{figure}[p]
+\begin{figure}[p]
     \includegraphics[
         width=\linewidth,
         height=0.95\textheight,
@@ -201,13 +204,15 @@ The State Diagram Figure 3-7 illustrates the lifecycle of a note generation requ
         ]{figures/generation-flow-state-diagram.pdf}
     \caption{Generation Flow State Diagram}
     \label{fig:Generation_flow_state_diagram}
-    \end{figure}
-\end{center}
+\end{figure}
 
 \subsubsection{Process Modelling using Activity Diagram}
 
-\begin{center}
-    \begin{figure}[p]
+The Activity Diagram ~\ref{fig:ingestion_flow_acitvity_diagram} illustrates the workflow followed during the knowledge base creation process. The process begins with uploading an academic PDF document, followed by document validation and metadata verification. Upon successful validation, the system processes the document, generates vector embeddings, and stores them in the vector database. If an error occurs during validation or ingestion, the workflow terminates by returning an appropriate error response. Otherwise, the system completes the process by returning a successful response, indicating that the knowledge base has been updated. \par
+
+The Activity Diagram ~\ref{fig:generation_flow_activity_diagram} illustrates the workflow of the note generation process. The process starts when a user submits a request for notes. The system prepares the retrieval context, retrieves relevant academic content from the vector database, and generates notes using the Large Language Model. The workflow concludes by returning the generated response to the user. If an error occurs during retrieval or response generation, the system terminates the process and returns an appropriate error response. \par
+
+\begin{figure}[p]
     \includegraphics[
         width=\linewidth,
         height=\textheight,
@@ -215,13 +220,10 @@ The State Diagram Figure 3-7 illustrates the lifecycle of a note generation requ
         ]{figures/ingestion-flow-activity-diagram.pdf}
     \caption{Ingestion Flow Activity Diagram}
     \label{fig:ingestion_flow_acitvity_diagram}
-    \end{figure}
-\end{center}
+\end{figure}
 
-The Activity Diagram ~\ref{fig:ingestion_flow_acitvity_diagram} illustrates the workflow followed during the knowledge base creation process. The process begins with uploading an academic PDF document, followed by document validation and metadata verification. Upon successful validation, the system processes the document, generates vector embeddings, and stores them in the vector database. If an error occurs during validation or ingestion, the workflow terminates by returning an appropriate error response. Otherwise, the system completes the process by returning a successful response, indicating that the knowledge base has been updated. \par
 
-\begin{center}
-    \begin{figure}[p]
+\begin{figure}[p]
     \includegraphics[
         width=\linewidth,
         height=\textheight,
@@ -229,7 +231,4 @@ The Activity Diagram ~\ref{fig:ingestion_flow_acitvity_diagram} illustrates the 
         ]{figures/generation-flow-activity-diagram.pdf}
     \caption{Generation Flow Activity Diagram}
     \label{fig:generation_flow_activity_diagram}
-    \end{figure}
-\end{center}
-
-The Activity Diagram ~\ref{fig:generation_flow_activity_diagram} illustrates the workflow of the note generation process. The process starts when a user submits a request for notes. The system prepares the retrieval context, retrieves relevant academic content from the vector database, and generates notes using the Large Language Model. The workflow concludes by returning the generated response to the user. If an error occurs during retrieval or response generation, the system terminates the process and returns an appropriate error response. \par
+\end{figure}

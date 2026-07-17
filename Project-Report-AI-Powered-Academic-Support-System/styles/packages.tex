@@ -76,6 +76,30 @@
 % Better TOC
 % ------------------------------------------------------------
 \usepackage{tocloft}
+
+% Set title font to 16pt bold
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\fontsize{16}{19}\selectfont}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+\renewcommand{\cftloftitlefont}{\hfill\bfseries\fontsize{16}{19}\selectfont}
+\renewcommand{\cftafterloftitle}{\hfill}
+
+\renewcommand{\cftlottitlefont}{\hfill\bfseries\fontsize{16}{19}\selectfont}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{12pt}   % try 6pt, 8pt, or 12pt
+
+\setlength{\cftbeforeloftitleskip}{0pt}
+\setlength{\cftafterloftitleskip}{12pt}
+
+\setlength{\cftbeforelottitleskip}{0pt}
+\setlength{\cftafterlottitleskip}{12pt}
+
+% (Optional) Center the titles
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftafterlottitle}{\hfill}
 %-------------------------------------------------
 % Table of Contents Formatting
 %-------------------------------------------------

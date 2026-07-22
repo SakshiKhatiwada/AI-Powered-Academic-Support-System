@@ -43,7 +43,7 @@
 
 \fancyhf{}
 
-\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\fontsize{12}{14}\selectfont\thepage}
 
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -53,7 +53,7 @@
 % 16 pt Bold
 % ------------------------------------------------------------
 \titleformat{\chapter}[display]
-  {\centering\bfseries\fontsize{16pt}{20pt}\selectfont}
+  {\centering\bfseries\fontsize{16pt}{18pt}\selectfont}
   {\MakeUppercase{CHAPTER \thechapter}}
   {1em}
   {\MakeUppercase}
@@ -61,7 +61,7 @@
 \titlespacing*{\chapter}
 {0pt}
 {0pt}
-{24pt}
+{12pt}
 
 % ------------------------------------------------------------
 % Section Heading
@@ -160,3 +160,12 @@
     parsep=0pt,
     partopsep=0pt
 }
+
+% loft captions:
+\renewcommand{\cftfigpresnum}{Figure~}
+\renewcommand{\cftfigaftersnum}{: }
+\setlength{\cftfignumwidth}{4.5em}
+
+\renewcommand{\cfttabpresnum}{Table~}
+\renewcommand{\cfttabaftersnum}{: }
+\setlength{\cfttabnumwidth}{4.5em}

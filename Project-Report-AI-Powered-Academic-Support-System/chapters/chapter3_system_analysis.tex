@@ -11,24 +11,24 @@ Requirement analysis identifies the features, constraints, and expectations that
 \subsubsection{Functional Requirements}
 Functional requirements describe the core services and operations that the system must perform to meet its intended objectives. These requirements define the interactions between users and the system, outlining the essential functionalities required for document ingestion, semantic retrieval, and AI-assisted response generation.
 \begin{enumerate}
-    \item The system shall accept a syllabus, chapter, or topic selection from the client application.
-    \item The system shall retrieve the corresponding academic content from the vector database using semantic similarity search.
-    \item The system shall construct a predefined prompt by combining the retrieved context with instructional guidelines.
-    \item The system shall generate topic-specific explanations using a Large Language Model.
-    \item The system shall return generated responses through a REST API in JSON format.
-    \item The system shall support multiple subjects by maintaining separate academic knowledge bases.
-    \item The system shall provide relevant and syllabus-oriented explanations based on the selected topic.
-    \item The system shall allow preprocessing of academic PDF documents for vector database creation.
+    \item The system accept a syllabus, chapter, or topic selection from the client application.
+    \item The system retrieves the corresponding academic content from the vector database using semantic similarity search.
+    \item The system constructs a predefined prompt by combining the retrieved context with instructional guidelines.
+    \item The system generates topic-specific explanations using a Large Language Model.
+    \item The system returns generated responses through a REST API in JSON format.
+    \item The system supports multiple subjects by maintaining separate academic knowledge bases.
+    \item The system provides relevant and syllabus-oriented explanations based on the selected topic.
+    \item The system allows preprocessing of academic PDF documents for vector database creation.
 \end{enumerate}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/use-case-diagram.png}
+    \includegraphics[width=\textwidth]{figures/use-case-diagram-2.png}
     \caption{Use Case Diagram}
     \label{fig:use_case_diagram}
 \end{figure}
 
-\begin{xltabular}{\textwidth}{|c|X|}
+\begin{xltabular}{\textwidth}{|l|X|}
     \caption{Build Knowledge Base Use Case} \\
 
         \hline
@@ -67,15 +67,18 @@ Functional requirements describe the core services and operations that the syste
 \end{xltabular}
 
 % Table 2
-\begin{table}[H]
-    \centering
-    \caption{Generate Academic Response Use Case}
-    \label{tab:generate_academic_response_use_case}
-
-    \begin{tabularx}{\textwidth}{|>{\bfseries}p{3.5cm}|X|}
+\begin{xltabular}{\textwidth}{|l|X|}
+    \caption{Generate Academic Response Use Case} \\
         \hline
         \textbf{Field} & \textbf{Description} \\
         \hline
+        \endfirsthead
+
+        \hline
+        \textbf{Field} & \textbf{Description} \\
+        \hline
+        \endhead
+
         Use Case ID & UC-2 \\
         \hline
         Use Case Name & Generate Academic Response \\
@@ -98,33 +101,32 @@ Functional requirements describe the core services and operations that the syste
         \hline
         Alternative Flow & If no relevant content is found, the system returns an appropriate message indicating that no matching academic content is available. \\
         \hline
-    \end{tabularx}
-\end{table}
+\end{xltabular}
 
 \subsubsection{Non-Fucntional Requirements}
 
 The non-functional requirements describe the quality attributes and operational characteristics expected from the proposed Academic Support System. \par
 
-\paragraph{Performance}
-The system shall generate and return academic responses within an acceptable response time under normal operating conditions. Semantic retrieval and response generation should be optimized to minimize user waiting time.
+\paragraph{Performance}  
+The system generates and returns academic responses within an acceptable response time under normal operating conditions. Semantic retrieval and response generation should be optimized to minimize user waiting time.
 
-\paragraph{Reliability}
-The system shall consistently generate accurate and contextually relevant responses based on the retrieved academic content. It should continue to function reliably as long as the required services and knowledge base are available.
+\paragraph{Reliability}  
+The system consistently generates accurate and contextually relevant responses based on the retrieved academic content. It should continue to function reliably as long as the required services and knowledge base are available.
 
-\paragraph{Scalability}
-The system shall support the addition of new academic subjects, chapters, and documents without requiring significant modifications to the existing architecture.
+\paragraph{Scalability}  
+The system supports the addition of new academic subjects, chapters, and documents without requiring significant modifications to the existing architecture.
 
-\paragraph{Maintainability}
-The system shall be modular so that components such as document preprocessing, embedding generation, vector storage, and response generation can be updated or maintained independently.
+\paragraph{Maintainability}  
+The system is modular so that components such as document preprocessing, embedding generation, vector storage, and response generation can be updated or maintained independently.
 
-\paragraph{Usability}
-The system shall provide a simple REST API that can be easily integrated with external frontend or backend applications. The API should accept structured requests and return responses in a standardized JSON format.
+\paragraph{Usability}  
+The system provides a simple REST API that can be easily integrated with external frontend or backend applications. The API should accept structured requests and return responses in a standardized JSON format.
 
-\paragraph{Availability}
-The system shall remain available for processing requests whenever the backend server, vector database, and Large Language Model service are operational.
+\paragraph{Availability}  
+The system remains available for processing requests whenever the backend server, vector database, and Large Language Model service are operational.
 
-\paragraph{Security}
-The system shall validate incoming API requests and handle invalid or incomplete inputs appropriately to ensure reliable operation and prevent unexpected failures.
+\paragraph{Security}  
+The system validates incoming API requests and handle invalid or incomplete inputs appropriately to ensure reliable operation and prevent unexpected failures.
 
 
 \subsection{Feasibility Analysis}
@@ -149,16 +151,16 @@ To improve modularity and extensibility, the system employs abstraction through 
 
 The Object Diagram represents a runtime snapshot of the Academic Support System, illustrating the instantiated objects and their relationships during system execution. Unlike the Class Diagram, which presents the static structure of the system, the Object Diagram depicts actual instances of the service and adapter classes. The \texttt{service} (for ingestion service), \texttt{retrieval\_service}, and \texttt{generation\_service} objects collaborate with the \texttt{SentenceTransformersAdapter}, \texttt{VectorDBAdapter}, and \texttt{LLMAdapter} objects to perform document ingestion, semantic retrieval, vector database operations, and AI-based response generation. This diagram demonstrates how the instantiated components interact to support the execution of the Retrieval-Augmented Generation (RAG) pipeline. \par
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{figures/class-diagram.png}
     \caption{Class Diagram}
     \label{fig:classdiagram}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{figures/object-diagram.png}
+    \includegraphics[width=\textwidth]{figures/object-diagram-2.png}
     \caption{Object Diagram}
     \label{fig:objectdiagram}
 \end{figure}
@@ -189,9 +191,10 @@ The State Diagram Figure \ref{fig:Generation_flow_state_diagram} illustrates the
 \begin{figure}[p]
         \includegraphics[
             width=\linewidth,
-            height=0.95\textheight,
+            height=\textheight,
             keepaspectratio
-            ]{figures/ingestion-flow-state-diagram.pdf}
+            % scale=0.5
+            ]{figures/ingestion-flow-state-diagram.png}
             \caption{Ingestion Flow State Diagram}
             \label{fig:ingestion_flow_state_diagram}
     \end{figure}
@@ -199,9 +202,10 @@ The State Diagram Figure \ref{fig:Generation_flow_state_diagram} illustrates the
 \begin{figure}[p]
     \includegraphics[
         width=\linewidth,
-        height=0.95\textheight,
+        height=\textheight,
         keepaspectratio
-        ]{figures/generation-flow-state-diagram.pdf}
+        % scale=0.5
+        ]{figures/generation-flow-state-diagram.png}
     \caption{Generation Flow State Diagram}
     \label{fig:Generation_flow_state_diagram}
 \end{figure}
@@ -212,23 +216,26 @@ The Activity Diagram ~\ref{fig:ingestion_flow_acitvity_diagram} illustrates the 
 
 The Activity Diagram ~\ref{fig:generation_flow_activity_diagram} illustrates the workflow of the note generation process. The process starts when a user submits a request for notes. The system prepares the retrieval context, retrieves relevant academic content from the vector database, and generates notes using the Large Language Model. The workflow concludes by returning the generated response to the user. If an error occurs during retrieval or response generation, the system terminates the process and returns an appropriate error response. \par
 
-\begin{figure}[p]
+\begin{figure}[H]
+    % \centering
     \includegraphics[
-        width=\linewidth,
-        height=\textheight,
-        keepaspectratio
-        ]{figures/ingestion-flow-activity-diagram.pdf}
+        % width=0.6\linewidth,
+        % % height=\textheight,
+        % keepaspectratio
+        scale=0.5
+        ]{figures/ingestion-flow-activity-diagram.png}
     \caption{Ingestion Flow Activity Diagram}
     \label{fig:ingestion_flow_acitvity_diagram}
 \end{figure}
 
 
-\begin{figure}[p]
+\begin{figure}[H]
     \includegraphics[
-        width=\linewidth,
-        height=\textheight,
-        keepaspectratio
-        ]{figures/generation-flow-activity-diagram.pdf}
+        % width=\linewidth,
+        % height=\textheight,
+        % keepaspectratio
+        % scale=0.5
+        ]{figures/generation-flow-activity-diagram.png}
     \caption{Generation Flow Activity Diagram}
     \label{fig:generation_flow_activity_diagram}
 \end{figure}

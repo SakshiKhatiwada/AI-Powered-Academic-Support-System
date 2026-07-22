@@ -11,7 +11,7 @@ Requirement analysis identifies the features, constraints, and expectations that
 \subsubsection{Functional Requirements}
 Functional requirements describe the core services and operations that the system must perform to meet its intended objectives. These requirements define the interactions between users and the system, outlining the essential functionalities required for document ingestion, semantic retrieval, and AI-assisted response generation.
 \begin{enumerate}
-    \item The system accept a syllabus, chapter, or topic selection from the client application.
+    \item The system accepts a syllabus, chapter, or topic selection from the client application.
     \item The system retrieves the corresponding academic content from the vector database using semantic similarity search.
     \item The system constructs a predefined prompt by combining the retrieved context with instructional guidelines.
     \item The system generates topic-specific explanations using a Large Language Model.
@@ -130,6 +130,8 @@ The system validates incoming API requests and handle invalid or incomplete inpu
 
 
 \subsection{Feasibility Analysis}
+The proposed AI-Powered Academic Support System is technically, economically, and operationally feasible.
+
 \subsubsection{Technical Feasibility}
 The proposed Academic Support System is technically feasible as it is developed using Python, FastAPI, PyPDFLoader, Sentence Transformers, Qdrant, and the Gemini API. These technologies provide the required capabilities for document processing, semantic embedding generation, vector storage, information retrieval, and AI-based response generation. The system is developed on standard computing hardware without requiring specialized infrastructure, making it suitable for academic and institutional use. \par
 
